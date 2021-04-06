@@ -7,3 +7,6 @@ build:
 
 clean:
 	dune clean
+
+installdeps:
+	opam install batteries core
