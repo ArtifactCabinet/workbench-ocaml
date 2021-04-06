@@ -3,7 +3,7 @@ According to "Introduction to algorithms 3rd"
 
 There are 7 approaches for sorting
 *)
-open Base;;                     (* Just to get defination of drop & take *)
+open Base;;                     (* Just to get definition of drop & take *)
 
 (* Approach 1: insertion sort *)
 
@@ -37,7 +37,7 @@ let rec merge x y =             (* Conquer *)
   | l ,[]->l
   | hx::tx,hy::ty ->
     if hx < hy
-    then hx::merge tx (hy::ty)  (* Pick the smaller one beteween two heads*)
+    then hx::merge tx (hy::ty)  (* Pick the smaller one between two heads*)
     else hy::merge ty (hx::tx)  (* Put it in front then let the rest keep comparing *)
 
 let rec merge_sort l=
