@@ -1,7 +1,19 @@
 # Books
-+ The OCaml system https://ocaml.org/releases/4.11/htmlman/index.html>
++ The OCaml system <https://ocaml.org/manual/>
 + Real World OCaml <https://dev.realworldocaml.org/>
-+ Cornell CS 3110 <https://www.cs.cornell.edu/courses/cs3110/2020fa/textbook/>
++ Cornell CS 3110 <https://www.cs.cornell.edu/courses/cs3110/2021sp/textbook/
+
+# Types
+
+## Std containers
++ Lists -> immutable singly-linked lists
++ Arrays -> mutable vectors
++ Strings -> immutable vectors
++ Set/Map -> immutable trees
++ Hashtbl -> automatically growing hash
++ Buffer -> extensible strings
++ Queue -> FIFO
++ Stack ->LIFO
 
 # How to compile an OCaml program
 
@@ -28,10 +40,12 @@ REPL =>`utop`
 
 ## `Core` or `Std` or `Batteries`?
 
-The std lib bundled with OCaml is like 30 years old, and was sufficient back to the days.
+<https://ocamlverse.github.io/content/standard_libraries.html>
 
-To ease your life, using `core` and `batteries` are desired.
+Just use `std` for normal tasks to avoid bloating.
 
-However, Jane Street's `core` don't have detailed doc, and is very large like ANSI Common Lisp Spec.
+Use `Core/Base` for bigger applications.
 
-The source code of inria std is actually here and its quite elegent: https://github.com/ocaml/ocaml/tree/trunk/stdlib
+`Batteries` is community driven.
+
+The source code of inria std is actually here and its quite elegant: https://github.com/ocaml/ocaml/tree/trunk/stdlib

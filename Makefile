@@ -9,4 +9,4 @@ clean:
 	dune clean
 
 installdeps:
-	opam install batteries core
+	opam install batteries core ocaml-lsp-server
