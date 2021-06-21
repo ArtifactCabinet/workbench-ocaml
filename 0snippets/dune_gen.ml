@@ -1,4 +1,3 @@
-#!/usr/bin/env ocaml
 (* TODO: direct IO within ocaml, and clean the code *)
 
 let endml name =
@@ -18,4 +17,4 @@ let f e =
   Printf.printf " %s" e
 in 
   List.iter f newf;;
-print_string "))";;
+print_string "))\n";;

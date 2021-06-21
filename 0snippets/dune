@@ -1,2 +1,2 @@
 (executables
-(names p01 dune_gen))
+(names dune_gen p01_int2bits))
