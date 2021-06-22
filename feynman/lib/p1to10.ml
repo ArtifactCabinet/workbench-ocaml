@@ -82,3 +82,9 @@ let%test _ =
     encode ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] 
     =[(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")]
 
+let encode_alt lst =
+    List.map (fun l -> (List.length l, List.hd l)) (pack lst);;
+
+let%test _ = 
+    encode_alt ["a"; "a"; "a"; "a"; "b"; "c"; "c"; "a"; "a"; "d"; "e"; "e"; "e"; "e"] 
+    =[(4, "a"); (1, "b"); (2, "c"); (2, "a"); (1, "d"); (4, "e")]
