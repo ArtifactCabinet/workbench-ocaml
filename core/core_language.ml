@@ -5,6 +5,8 @@ open List;;
 
 let slb_double x = x*2;;
 
+(* They are composition operators *)
+(* https://ocaml.org/api/Stdlib.html#1_Compositionoperators *)
 slb_double @@ 3 ;;              (* apply *)
 3 |> slb_double;;               (* pipeline *)
 
@@ -19,18 +21,19 @@ l1=l2;; (* return => true *)
 
 
 (* Folding *)
+(* 1 - (2 - (3 - 0)) => 2 *)
+(* init value on right *)
+fold_right (-) [1;2;3] 0;;
 
-fold_right (-) [1;2;3] 0;;      (* 2 *)
-fold_left  (-) 0 [1;2;3];;      (* -6 *)
+(* ((0 - 1) - 2) - 3 => -6 *)
+(* init value on left *)
+fold_left  (-) 0 [1;2;3];;
 
 (* Folding with Trees *)
 type 'a tree=
   | Leaf
-  | Node of 'a * 'a tree * 'a tree (* the * is tuple type *)
+  | Node of 'a * 'a tree * 'a tree;; (* the * is tuple type *)
 
-let rec foldtree init op = function
-  | Leaf -> init
-  | Node (v,l,r) -> op v (foldtree init op l) (foldtree init op r)
 
 (* Usage example *)
 
@@ -47,13 +50,36 @@ let mytree =
 
 (* 4-( 2-(1,3) 5-(6,7)) *)
 
+(* A generic function that put op on each level of the tree *)
+let rec foldtree init op = function
+  | Leaf -> init
+  | Node (v,l,r) -> op v (foldtree init op l) (foldtree init op r);;
+
 let treeSize t = foldtree 0 (fun _ l r -> 1 + l + r) t;;
 let treeSum  t = foldtree 0 (fun x l r -> x +l + r) t;;
 
-treeSize mytree;;               (* 7 *)
-treeSum mytree;;                (* 28*)
+(* Less abstraction ? *)
+let rec treeSize_alt = 
+  function
+    | Leaf -> 0
+    | Node (_,l,r) -> 1 + treeSize_alt l + treeSize_alt r;;
+let rec treeSum_alt = 
+  function
+    | Leaf -> 0
+    | Node (v,l,r) -> v + treeSum_alt l + treeSum_alt r;;
 
-(* Pipe lining*)
+
+treeSize mytree;;               (* 7 *)
+treeSize_alt mytree;;
+
+treeSum mytree;;                (* 28*)
+treeSum_alt mytree;;
+
+(* Tree fliper *)
+let rec treeFlip = function
+  | Leaf -> Leaf
+  | Node (v,l,r) -> Node(v,treeFlip r,treeFlip l);;
+mytree = treeFlip @@ treeFlip mytree;; (* True *)
 
 (* define Python's range function *)
 
@@ -110,7 +136,7 @@ let rec evaluate e=
   | Add (e,e2) -> evaluate e + evaluate e2
   | Sub (e,e2) -> evaluate e - evaluate e2
   | Mul (e,e2) -> evaluate e * evaluate e2
-  | Div (e,e2) -> evaluate e / evaluate e2;; 
+  | Div (e,e2) -> evaluate e / evaluate e2;;
 
 evaluate (Add (Num 1, Mul ( Num 2, Num 3)));; (* (Add 1 (Mul 2 3) => 7*)
 
